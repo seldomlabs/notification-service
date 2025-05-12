@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@PropertySource("file:/Users/harsh.shukla/notification-service-properties/db.properties")
+@PropertySource("file:/opt/notification-service-properties/db.properties")
 public class DataSourceConfig {
 
     private static final Logger logger = LogManager.getLogger(DataSourceConfig.class);

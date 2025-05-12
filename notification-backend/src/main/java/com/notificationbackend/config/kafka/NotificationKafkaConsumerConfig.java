@@ -9,7 +9,7 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 
 @EnableKafka
 @Configuration
-@PropertySource("file:/Users/harsh.shukla/notification-service-properties/properties/kafka.properties")
+@PropertySource("file:/opt/notification-service-properties/properties/kafka.properties")
 public class NotificationKafkaConsumerConfig extends AbstractKafkaConsumerConfig {
     private static final String KAFKA_NOTIFICATION_GROUP_ID = ApplicationProperties.getInstance().getProperty("kafka",
             "kafka.notification.group", "notification_group");
