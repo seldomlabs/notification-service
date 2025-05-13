@@ -27,7 +27,7 @@ public class UserFcmTokenMapping extends AbstractJpaEntity {
         return fcmToken;
     }
 
-    public void setFcmToken(String gcmToken) {
-        this.fcmToken = gcmToken;
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 }

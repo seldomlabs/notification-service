@@ -38,7 +38,7 @@ public class NotificationServiceImpl implements NotificationService {
             userFcmTokenMapping = new UserFcmTokenMapping();
             userFcmTokenMapping.setUserId(userId);
         }
-        userFcmTokenMapping.setFcmToken(request.getGcmToken());
+        userFcmTokenMapping.setFcmToken(request.getFcmToken());
         commonDbService.updateEntity(userFcmTokenMapping);
         mpResponse.setStatus(MPResponseStatus.SUCCESS.name());
         mpResponse.setMessage("Gcm token updated successfully");

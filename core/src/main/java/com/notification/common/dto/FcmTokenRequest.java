@@ -11,8 +11,8 @@ public class FcmTokenRequest {
     private String userId;
 
     @NotNull(message = GlobalConstants.ValidationMessages.DATA_INVALID)
-    @NotEmpty(message = "Gcm token cannot be empty")
-    private String gcmToken;
+    @NotEmpty(message = "Fcm token cannot be empty")
+    private String fcmToken;
 
     public String getUserId() {
         return userId;
@@ -22,11 +22,11 @@ public class FcmTokenRequest {
         this.userId = userId;
     }
 
-    public String getGcmToken() {
-        return gcmToken;
+    public String getFcmToken() {
+        return fcmToken;
     }
 
-    public void setGcmToken(String gcmToken) {
-        this.gcmToken = gcmToken;
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 }
