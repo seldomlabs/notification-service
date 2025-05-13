@@ -1,6 +1,6 @@
 package com.notificationapi.controller;
 
-import com.notification.common.dto.GcmTokenRequest;
+import com.notification.common.dto.FcmTokenRequest;
 import com.notification.common.dto.MPResponse;
 import com.notification.common.dto.NotificationSendRequest;
 import com.notification.constants.RequestURI;
@@ -21,10 +21,10 @@ public class NotificationController {
     @Autowired
     NotificationService notificationService;
 
-    @RequestMapping(method = RequestMethod.POST, value = RequestURI.UPDATE_USER_GCM_TOKEN)
+    @RequestMapping(method = RequestMethod.POST, value = RequestURI.UPDATE_USER_FCM_TOKEN)
     @ResponseBody
-    ResponseEntity<MPResponse> updateUserGcmToken(@Valid @RequestBody GcmTokenRequest request) throws Exception {
-        MPResponse response = notificationService.updateUserGcmToken(request);
+    ResponseEntity<MPResponse> updateUserFcmToken(@Valid @RequestBody FcmTokenRequest request) throws Exception {
+        MPResponse response = notificationService.updateUserFcmToken(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

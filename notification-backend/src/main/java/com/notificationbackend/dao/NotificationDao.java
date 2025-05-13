@@ -2,7 +2,7 @@ package com.notificationbackend.dao;
 
 import com.notification.common.db.dao.CommonDao;
 import com.notification.common.db.service.CommonDbService;
-import com.notificationbackend.model.UserGcmTokenMapping;
+import com.notificationbackend.model.UserFcmTokenMapping;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +22,10 @@ public class NotificationDao {
 
     Logger logger = LogManager.getLogger(NotificationDao.class);
 
-    public UserGcmTokenMapping getUserGcmTokenMappingFromUserId(String userId) throws Exception {
-        String query = "select gcmt from UserGcmTokenMapping gcmt where gcmt.userId = :user_id";
+    public UserFcmTokenMapping getUserFcmTokenMappingFromUserId(String userId) throws Exception {
+        String query = "select fcmt from UserFcmTokenMapping fcmt where fcmt.userId = :user_id";
         Map<String, Object> queryMap = new HashMap<>();
         queryMap.put("user_id", userId);
-        return commonDbService.selectEntityByCriteria(UserGcmTokenMapping.class, query, queryMap);
+        return commonDbService.selectEntityByCriteria(UserFcmTokenMapping.class, query, queryMap);
     }
 }

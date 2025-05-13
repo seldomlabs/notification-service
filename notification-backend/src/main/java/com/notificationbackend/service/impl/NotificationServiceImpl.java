@@ -5,14 +5,11 @@ import com.notification.common.dto.*;
 import com.notification.common.kafka.KafkaPushService;
 import com.notification.constants.GlobalConstants;
 import com.notificationbackend.dao.NotificationDao;
-import com.notificationbackend.model.UserGcmTokenMapping;
+import com.notificationbackend.model.UserFcmTokenMapping;
 import com.notificationbackend.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.notification.constants.NotificationConstants.NotificationTopics;
-
-import javax.annotation.Resource;
-import java.util.Map;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {
@@ -30,19 +27,19 @@ public class NotificationServiceImpl implements NotificationService {
     private KafkaPushService kafkaPushService;
 
     @Override
-    public MPResponse updateUserGcmToken(GcmTokenRequest request) throws Exception {
+    public MPResponse updateUserFcmToken(FcmTokenRequest request) throws Exception {
         MPResponse mpResponse = new MPResponse();
         mpResponse.setStatus(MPResponseStatus.FAILURE.name());
 
         String userId = request.getUserId();
-        UserGcmTokenMapping userGcmTokenMapping = notificationDao.getUserGcmTokenMappingFromUserId(userId);
+        UserFcmTokenMapping userFcmTokenMapping = notificationDao.getUserFcmTokenMappingFromUserId(userId);
 
-        if (userGcmTokenMapping == null) {
-            userGcmTokenMapping = new UserGcmTokenMapping();
-            userGcmTokenMapping.setUserId(userId);
+        if (userFcmTokenMapping == null) {
+            userFcmTokenMapping = new UserFcmTokenMapping();
+            userFcmTokenMapping.setUserId(userId);
         }
-        userGcmTokenMapping.setGcmToken(request.getGcmToken());
-        commonDbService.updateEntity(userGcmTokenMapping);
+        userFcmTokenMapping.setFcmToken(request.getGcmToken());
+        commonDbService.updateEntity(userFcmTokenMapping);
         mpResponse.setStatus(MPResponseStatus.SUCCESS.name());
         mpResponse.setMessage("Gcm token updated successfully");
         return mpResponse;
@@ -57,12 +54,12 @@ public class NotificationServiceImpl implements NotificationService {
         String notificationType = request.getNotificationType();
         String body = request.getBody();
         String title = request.getTitle();
-        UserGcmTokenMapping userGcmTokenMapping = notificationDao.getUserGcmTokenMappingFromUserId(userId);
+        UserFcmTokenMapping userGcmTokenMapping = notificationDao.getUserFcmTokenMappingFromUserId(userId);
         if (userGcmTokenMapping == null) {
             return mpResponse;
         }
         NotificationEventDto notificationEventDto = new NotificationEventDto.NotificationEventDtoBuilder().notificationType(notificationType)
-                .body(body).title(title).gcmToken(userGcmTokenMapping.getGcmToken()).build();
+                .body(body).title(title).gcmToken(userGcmTokenMapping.getFcmToken()).build();
         kafkaPushService.sendToKafka(NotificationTopics.user_notification.name(), GlobalConstants.objectMapper.writeValueAsString(notificationEventDto));
         mpResponse.setStatus(MPResponseStatus.SUCCESS.name());
         mpResponse.setMessage("Successfully pushed notification");
